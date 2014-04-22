@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>NF Push | Experiment</title>
+    <style>
+        .m-nf-push-container {
+            background-color: #eeeeee;
+            box-sizing: border-box;
+            padding: 10px;
+        }
+
+        .m-nf-push-container__main-heading {
+            margin-bottom: 3px;
+            font-size: 22px;
+        }
+
+        .m-nf-push-container__sub-heading {
+            font-size: 16px;
+            line-height: 1.4;
+            margin-bottom: 3px;
+        }
+
+        .m-nf-push-container p {
+            font-size: 13px;
+            line-height: 1.4;
+            margin-bottom: 10px
+        }
+
+        .m-nf-push-container__header {
+            border-bottom: 1px solid #cccccc;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .m-nf-push-container__logo {
+            float: left;
+            margin-right: 15px;
+        }
+
+        .m-nf-push-container__blurb {
+            float: left;
+            width: 555px;
+        }
+
+        .m-nf-push-container__blurb p {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .m-nf-push-container__body {
+            overflow: hidden;
+        }
+
+        .m-nf-push-container__top-story {
+            width: 220px;
+            float: left;
+            margin-right: 15px;
+        }
+
+        .m-nf-push-container__top-story img {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .m-nf-push-container__minor-stories {
+            float: left;
+            width: 364px;
+        }
+
+        .m-nf-push-container__minor-story--last {
+            border-top: 1px dotted #ccc;
+            padding-top: 10px
+        }
+
+        /* borrowed from pasteup */
+        .m-nf-push-container__cta-btn {
+            background-color: #005689;
+            border: 1px solid #005689;
+            box-shadow: 0 2px 5px 2px #ededed;
+            color: #fff;
+            display: inline-block;
+            font-size: 14px;
+            font-weight: bold;
+            outline: none;
+            padding: 5px 20px;
+            text-align: center;
+            text-shadow: 0 2px 0 #004372;
+            text-decoration: none;
+            -webkit-box-shadow: 0 2px 5px 2px #ededed;
+            -moz-box-shadow: 0 2px 5px 2px #ededed;
+        }
+
+        .m-nf-push-container__cta-btn:hover,
+        .m-nf-push-container__cta-btn:focus {
+            background-color: #004372;
+            border-color: #004372;
+        }
+
+        .m-nf-push-container__cta-btn:active {
+            background-color: #004878;
+            border-color: #004878;
+            -webkit-box-shadow: 0 2px 5px 2px #000;
+            -moz-box-shadow :0 2px 5px 2px #000;
+            box-shadow: inset 0 0 8px #000;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="col-8 edge component m-nf-push-container">
+
+        <div class="m-nf-push-container__header">
+            <div class="m-nf-push-container__logo">
+                <img src="http://static.guim.co.uk/microapps/static/growth/gu-logo-g-2.png" />
+            </div>
+
+            <div class="m-nf-push-container__blurb">
+                <h4 class="m-nf-push-container__main-heading">Welcome to the Guardian</h4>
+                {% if options.copyText %}
+                    <p>{{ options.copyText }}</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="m-nf-push-container__body">
+            <div class="m-nf-push-container__top-story">
+                <h4 class="m-nf-push-container__sub-heading">{% if options.showlinks %}<a href="{{ content[0].webUrl }}">{% endif %}{{ content[0].webTitle }}{% if options.showlinks %}</a>{% endif %}</h4>
+                {% if content[0].fields.thumbnail %}
+                <img src="{{ content[0].fields.thumbnail }}" />{% endif %}
+            </div>
+
+            <div class="m-nf-push-container__minor-stories">
+                <div class="m-nf-push-container__minor-story">
+                    <h4 class="m-nf-push-container__sub-heading">{% if options.showlinks %}<a href="{{ content[1].webUrl }}">{% endif %}{{ content[1].webTitle }}{% if options.showlinks %}</a>{% endif %}</h4>
+                    {% if content[1].fields.standfirst %}<p>{{ content[1].fields.standfirst|striptags }}</p>{% endif %}
+                </div>
+
+                <div class="m-nf-push-container__minor-story m-nf-push-container__minor-story--last">
+                    <h4 class="m-nf-push-container__sub-heading">{% if options.showlinks %}<a href="{{ content[2].webUrl }}">{% endif %}{{ content[2].webTitle }}{% if options.showlinks %}</a>{% endif %}</h4>
+                    {% if content[2].fields.standfirst %}<p>{{ content[2].fields.standfirst|striptags }}</p>{% endif %}
+                </div>
+
+                <div class="m-nf-push-container__cta">
+                    <a class="us-front-cta m-nf-push-container__cta-btn" href="http://www.theguardian.com/us">Visit the Guardian homepage</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
