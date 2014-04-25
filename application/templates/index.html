@@ -105,49 +105,156 @@
             box-shadow: inset 0 0 8px #000;
         }
 
+        .m-nf-push-container__cf {
+            overflow: hidden;
+        }
+
+        /* variant: bento; */
+
+        .m-nf-push-container--bento .m-nf-push-container__blurb {
+            width: auto;
+        }
+
+        .m-nf-push-container--bento .m-nf-push-container__sub-heading {
+            margin-top: 0;
+        }
+
+        .m-nf-push-container--bento .m-nf-push-container__top-story {
+            width: 340px;
+        }
+
+        .m-nf-push-container--bento .m-nf-push-container__top-story img {
+            float: left;
+            width: auto;
+            margin-right: 10px;
+            margin-top: 0
+        }
+
+        .m-nf-push-container--bento .m-nf-push-container__sub-heading--lesser {
+            margin: 15px 0 10px;
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
+        }
+
+        .m-nf-push-container--bento .m-nf-push-container__sidelinks {
+            float: left;
+            width: 245px;
+        }
+
+        .m-nf-push-container--bento .m-nf-push-container__minor-story {
+            border-bottom: 1px dotted #ccc;
+            padding-bottom: 3px;
+            margin-bottom: 3px
+        }
+
+        .m-nf-push-container--bento .m-nf-push-container__minor-story .m-nf-push-container__sub-heading {
+            font-size: 14px;
+        }
+
+        .m-nf-push-container--bento .m-nf-push-container__bulleted {
+            list-style-type: disc;
+            margin-left: 15px
+        }
     </style>
 </head>
 
 <body>
 
-    <div class="col-8 edge component m-nf-push-container">
+    <div class="col-8 edge component m-nf-push-container m-nf-push-container--{{ variant }}">
 
-        <div class="m-nf-push-container__header">
-            <div class="m-nf-push-container__logo">
-                <img src="http://static.guim.co.uk/microapps/static/growth/gu-logo-g-2.png" />
-            </div>
+        {% if variant == 'bento' %}
 
-            <div class="m-nf-push-container__blurb">
-                <h4 class="m-nf-push-container__main-heading">Welcome to the Guardian</h4>
-                {% if options.copyText %}
-                    <p>{{ options.copyText }}</p>
-                {% endif %}
-            </div>
-        </div>
-
-        <div class="m-nf-push-container__body">
-            <div class="m-nf-push-container__top-story">
-                <h4 class="m-nf-push-container__sub-heading">{% if options.showlinks %}<a href="{{ content[0].webUrl }}">{% endif %}{{ content[0].webTitle }}{% if options.showlinks %}</a>{% endif %}</h4>
-                {% if content[0].fields.thumbnail %}
-                <img src="{{ content[0].fields.thumbnail }}" />{% endif %}
-            </div>
-
-            <div class="m-nf-push-container__minor-stories">
-                <div class="m-nf-push-container__minor-story">
-                    <h4 class="m-nf-push-container__sub-heading">{% if options.showlinks %}<a href="{{ content[1].webUrl }}">{% endif %}{{ content[1].webTitle }}{% if options.showlinks %}</a>{% endif %}</h4>
-                    {% if content[1].fields.standfirst %}<p>{{ content[1].fields.standfirst|striptags }}</p>{% endif %}
+            <div class="m-nf-push-container__header">
+                <div class="m-nf-push-container__logo">
+                    {% if edition == 'us' %}
+                        <img src="http://static.guim.co.uk/microapps/static/growth/gu-logo-g-us.png" />
+                    {% elif edition == 'au' %}
+                        <img src="http://static.guim.co.uk/microapps/static/growth/gu-logo-g-au.png" />
+                    {% else %}
+                        <img src="http://static.guim.co.uk/microapps/static/growth/gu-logo-g-2.png" />
+                    {% endif %}
                 </div>
 
-                <div class="m-nf-push-container__minor-story m-nf-push-container__minor-story--last">
-                    <h4 class="m-nf-push-container__sub-heading">{% if options.showlinks %}<a href="{{ content[2].webUrl }}">{% endif %}{{ content[2].webTitle }}{% if options.showlinks %}</a>{% endif %}</h4>
-                    {% if content[2].fields.standfirst %}<p>{{ content[2].fields.standfirst|striptags }}</p>{% endif %}
-                </div>
-
-                <div class="m-nf-push-container__cta">
-                    <a class="us-front-cta m-nf-push-container__cta-btn" href="http://www.theguardian.com/us">Visit the Guardian homepage</a>
+                <div class="m-nf-push-container__blurb">
+                    <h4 class="m-nf-push-container__main-heading">
+                        <a href="http://www.theguardian.com/{% if edition == 'us' %}us{% endif %}">Read the Guardian{% if edition == 'us' %} US{% endif %}</a>
+                    </h4>
                 </div>
             </div>
-        </div>
+
+            <div class="m-nf-push-container__body">
+
+                <div class="m-nf-push-container__top-story">
+                    {% if content[0].fields.thumbnail %}
+                        <div class="m-nf-push-container__cf">
+                            <img src="{{ content[0].fields.thumbnail }}" />
+                            <h4 class="m-nf-push-container__sub-heading">{% if options.showlinks %}<a href="{{ content[0].webUrl }}">{% endif %}{{ content[0].webTitle }}{% if options.showlinks %}</a>{% endif %}</h4>
+                        </div>
+                    {% endif %}
+                    <h4 class="m-nf-push-container__sub-heading m-nf-push-container__sub-heading--lesser">{% if options.showlinks %}<a href="{{ content[1].webUrl }}">{% endif %}{{ content[1].webTitle }}{% if options.showlinks %}</a>{% endif %}</h4>
+                </div>
+
+                <div class="m-nf-push-container__sidelinks">
+                    <ul class="m-nf-push-container__bulleted">
+                        {% for c in content[2:5] %}
+                            <li class="m-nf-push-container__minor-story">
+                                <h4 class="m-nf-push-container__sub-heading">{% if options.showlinks %}<a href="{{ c.webUrl }}">{% endif %}{{ c.webTitle }}{% if options.showlinks %}</a>{% endif %}</h4>
+                            </li>
+                        {% endfor %}
+                    </ul>
+
+                </div>
+
+            </div>
+
+        {% else %}
+
+            <div class="m-nf-push-container__header">
+                <div class="m-nf-push-container__logo">
+                    <img src="http://static.guim.co.uk/microapps/static/growth/gu-logo-g-2.png" />
+                </div>
+
+                <div class="m-nf-push-container__blurb">
+                    <h4 class="m-nf-push-container__main-heading">Welcome to the Guardian</h4>
+                    {% if options.copyText %}
+                        <p>{{ options.copyText }}</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="m-nf-push-container__body">
+                <div class="m-nf-push-container__top-story">
+                    <h4 class="m-nf-push-container__sub-heading">{% if options.showlinks %}<a href="{{ content[0].webUrl }}">{% endif %}{{ content[0].webTitle }}{% if options.showlinks %}</a>{% endif %}</h4>
+                    {% if content[0].fields.thumbnail %}
+                    <img src="{{ content[0].fields.thumbnail }}" />{% endif %}
+                </div>
+
+                <div class="m-nf-push-container__minor-stories">
+                    <div class="m-nf-push-container__minor-story">
+                        <h4 class="m-nf-push-container__sub-heading">{% if options.showlinks %}<a href="{{ content[1].webUrl }}">{% endif %}{{ content[1].webTitle }}{% if options.showlinks %}</a>{% endif %}</h4>
+                        {% if content[1].fields.standfirst %}
+                            <p>{{ content[1].fields.standfirst|striptags }}</p>
+                        {% elif content[1].fields.trailText %}
+                            <p>{{ content[1].fields.trailText|striptags }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div class="m-nf-push-container__minor-story m-nf-push-container__minor-story--last">
+                        <h4 class="m-nf-push-container__sub-heading">{% if options.showlinks %}<a href="{{ content[2].webUrl }}">{% endif %}{{ content[2].webTitle }}{% if options.showlinks %}</a>{% endif %}</h4>
+                        {% if content[2].fields.standfirst %}
+                            <p>{{ content[2].fields.standfirst|striptags }}</p>
+                        {% elif content[2].fields.trailText %}
+                            <p>{{ content[2].fields.trailText|striptags }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div class="m-nf-push-container__cta">
+                        <a class="us-front-cta m-nf-push-container__cta-btn" href="http://www.theguardian.com/us">Visit the Guardian homepage</a>
+                    </div>
+                </div>
+            </div>
+
+        {% endif %}
 
     </div>
 
