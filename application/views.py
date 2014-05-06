@@ -10,6 +10,7 @@ from decorators import login_required, admin_required, crossdomain
 import configuration
 
 cache = Cache(app)
+
 @crossdomain(origin='*')
 def home(source=None, variant=None, edition=None):
     api_url = configuration.lookup('CONTENT_API_URL')
@@ -49,6 +50,19 @@ def home(source=None, variant=None, edition=None):
 
 
     return render_template('index.html', content=data, options=options, variant=variant, edition=edition, source=source)
+
+@crossdomain(origin='*')
+def popular(edition='us'):
+    num_items = 7
+    time_unit = 'hours'
+    time_offset = 168 # 1 week
+    referrer = 'facebook'
+    params = "/".join(str(x) for x in [edition, num_items, time_unit, time_offset, 'referrer', referrer])
+    popular_url = 'http://rrees-experiments.appspot.com/data/most-popular/' + params
+    response = requests.get(popular_url)
+    data = response.json()['most_popular']
+    return render_template('popular.html', content=data)
+
 
 def warmup():
     """App Engine warmup handler

@@ -1,0 +1,62 @@
+<style>
+.m-gh-soc-pop__subhead {
+    font-size: 14px;
+    margin-top: 5px;
+    font-style: italic;
+    color: #666;
+}
+.m-gh-soc-pop__img {
+    width: 80px;
+    float: left;
+    margin-right: 10px;
+}
+.m-gh-soc-pop__item {
+    clear: left;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #DFDFDF;
+    padding-bottom: 10px;
+    font-size: 13px;
+}
+
+.m-gh-soc-pop__item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.m-obj-media,
+.m-obj-media__bd {
+    overflow: hidden;
+    _overflow: visible;
+    zoom: 1;
+}
+
+.m-obj-media .m-obj-media__img {
+    float: left;
+    margin-right: 10px;
+}
+
+.m-obj-media__img img {
+    display: block;
+}
+
+</style>
+<div class="promo-component four-col m-gh-soc-pop">
+    <div class="hd">
+        <h3>Popular on Facebook</h3>
+    </div>
+    <div class="bd">
+        <ol class="m-gh-soc-pop__items">
+        {% for c in content %}
+            <li class="m-gh-soc-pop__item m-obj-media">
+                {% if c.fields.thumbnail %}
+                    <img src="{{ c.fields.thumbnail }}" class="m-gh-soc-pop__img m-obj-media__img" />
+                {% endif %}
+                <div class="m-obj-media__bd m-gh-soc-pop__text">
+                    <a href="{{ c.webUrl }}">{{ c.webTitle }}</a>
+                </div>
+            </li>
+        {% endfor %}
+        </ol>
+    </div>
+</div>
