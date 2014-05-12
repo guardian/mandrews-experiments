@@ -1,4 +1,5 @@
 from google.appengine.api import users
+from google.appengine.ext import db
 from google.appengine.runtime.apiproxy_errors import CapabilityDisabledError
 
 from flask import request, render_template, flash, url_for, redirect
@@ -63,6 +64,28 @@ def popular(edition='us'):
     data = response.json()['most_popular']
     return render_template('popular.html', content=data)
 
+class Summary(db.Model):
+    summary_text = db.StringProperty(required=True)
+
+@admin_required
+def edit():
+    current_summary = db.Key.from_path('Summary', 'summary')
+    rec = db.get(current_summary)
+
+    if request.method == 'POST':
+        s = request.form['summary_text']
+        if rec:
+            rec.summary_text = s
+            rec.put()
+        else:
+            summary = Summary(summary_text=s, key_name='summary')
+            db.put(summary)
+            rec = summary
+    msg = ''
+    if rec:
+        msg = rec.summary_text
+
+    return render_template('edit.html', cur_msg=msg)
 
 def warmup():
     """App Engine warmup handler
