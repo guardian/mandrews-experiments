@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>NF Push | Experiment</title>
+    <style>
+        .m-nf-push-container {
+            background-color: #eeeeee;
+            box-sizing: border-box;
+            padding: 10px;
+        }
+
+        .m-nf-push-container__main-heading {
+            margin-bottom: 3px;
+            font-size: 22px;
+        }
+
+        .m-nf-push-container__sub-heading {
+            font-size: 16px;
+            line-height: 1.4;
+            margin-bottom: 3px;
+        }
+
+
+        .m-nf-push-container__header {
+            border-bottom: 1px solid #cccccc;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .m-nf-push-container__logo {
+            float: left;
+            margin-right: 15px;
+        }
+
+        .m-nf-push-container__blurb {
+            float: left;
+            width: 555px;
+        }
+
+        .m-nf-push-container__blurb p {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .m-nf-push-container__body {
+            overflow: hidden;
+        }
+
+        /* borrowed from pasteup */
+        .m-nf-push-container__cta-btn {
+            background-color: #005689;
+            border: 1px solid #005689;
+            box-shadow: 0 2px 5px 2px #ededed;
+            color: #fff;
+            display: inline-block;
+            font-size: 14px;
+            font-weight: bold;
+            outline: none;
+            padding: 5px 20px;
+            text-align: center;
+            text-shadow: 0 2px 0 #004372;
+            text-decoration: none;
+            -webkit-box-shadow: 0 2px 5px 2px #ededed;
+            -moz-box-shadow: 0 2px 5px 2px #ededed;
+        }
+
+        .m-nf-push-container__cta-btn:hover,
+        .m-nf-push-container__cta-btn:focus {
+            background-color: #004372;
+            border-color: #004372;
+        }
+
+        .m-nf-push-container__cta-btn:active {
+            background-color: #004878;
+            border-color: #004878;
+            -webkit-box-shadow: 0 2px 5px 2px #000;
+            -moz-box-shadow :0 2px 5px 2px #000;
+            box-shadow: inset 0 0 8px #000;
+        }
+
+        .m-nf-push-container__msg {
+            font-family: georgia;
+            font-size: 19px;
+            margin: 3px 0 9px 0;
+            color: #333;
+            font-style: italic;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="col-8 edge component m-nf-push-container m-nf-push-container--{{ variant }}">
+
+            <div class="m-nf-push-container__header">
+                <div class="m-nf-push-container__logo">
+                    {% if edition == 'us' %}
+                        <img src="http://static.guim.co.uk/microapps/static/growth/gu-logo-g-us.png" />
+                    {% elif edition == 'au' %}
+                        <img src="http://static.guim.co.uk/microapps/static/growth/gu-logo-g-au.png" />
+                    {% else %}
+                        <img src="http://static.guim.co.uk/microapps/static/growth/gu-logo-g-2.png" />
+                    {% endif %}
+                </div>
+
+                <div class="m-nf-push-container__blurb">
+                    <h4 class="m-nf-push-container__main-heading">
+                        What's on the Guardian{% if edition == 'us' %} US{% endif %} today:</a>
+                    </h4>
+                </div>
+            </div>
+
+            <div class="m-nf-push-container__body">
+                <div class="m-nf-push-container__cta">
+                    {% if msg %}<p class="m-nf-push-container__msg">{{ msg }}</p>{% endif %}
+                    <a class="us-front-cta m-nf-push-container__cta-btn" href="http://www.theguardian.com/us">Visit the Guardian homepage</a>
+                </div>
+            </div>
+    </div>
+
+</body>
+</html>

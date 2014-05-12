@@ -23,6 +23,8 @@ app.add_url_rule('/popular/<edition>/', 'popular', view_func=views.popular)
 # editor
 app.add_url_rule('/edit/', 'edit', view_func=views.edit, methods=['GET', 'POST'])
 
+app.add_url_rule('/message/', 'message', view_func=views.msg)
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404

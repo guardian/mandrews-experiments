@@ -74,18 +74,31 @@ def edit():
 
     if request.method == 'POST':
         s = request.form['summary_text']
-        if rec:
-            rec.summary_text = s
-            rec.put()
+        if s:
+            if rec:
+                rec.summary_text = s
+                rec.put()
+            else:
+                summary = Summary(summary_text=s, key_name='summary')
+                db.put(summary)
+                rec = summary
         else:
-            summary = Summary(summary_text=s, key_name='summary')
-            db.put(summary)
-            rec = summary
+            rec.delete()
+        return redirect("/edit/")
     msg = ''
     if rec:
         msg = rec.summary_text
 
     return render_template('edit.html', cur_msg=msg)
+
+@crossdomain(origin='*')
+def msg(edition='us'):
+    msg = None
+    current_summary = db.Key.from_path('Summary', 'summary')
+    rec = db.get(current_summary)
+    if rec:
+        msg = rec.summary_text
+    return render_template('msg.html', msg=msg)
 
 def warmup():
     """App Engine warmup handler

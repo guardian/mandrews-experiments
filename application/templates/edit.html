@@ -2,11 +2,20 @@
 <html>
     <head>
         <title>Edit</title>
+        <link rel="stylesheet" href="http://pasteup.guim.co.uk/0.0.5/css/pasteup.min.css" />
+        <style>
+            body {
+                margin: 30px auto;
+                text-align: center;
+            }
+        </style>
     </head>
     <body>
+        <h1 class="article-heading margin-bottom">Update Network Front summary</h1>
+        <h2 class="sub-heading margin-bottom">(for US growth hacking experiments)</h2>
         <form method="post">
-            <textarea name="summary_text">{{ cur_msg }}</textarea>
-            <input type="submit">
+            <textarea xrows="3" cols="50" name="summary_text" class="sub-heading margin-bottom">{{ cur_msg }}</textarea>
+            <p><input type="submit" class="button" value="Update text" /></p>
         </form>
     </body>
 </html>
