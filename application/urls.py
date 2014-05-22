@@ -18,7 +18,9 @@ app.add_url_rule('/variant/<variant>/<edition>/', 'home', view_func=views.home)
 
 # popular
 app.add_url_rule('/popular/', 'popular', view_func=views.popular)
-app.add_url_rule('/popular/<edition>/', 'popular', view_func=views.popular)
+app.add_url_rule('/popular/<theme>/', 'popular', view_func=views.popular)
+app.add_url_rule('/popular/<theme>/<edition>/', 'popular', view_func=views.popular)
+app.add_url_rule('/popular/<theme>/<edition>/<referrer>/', 'popular', view_func=views.popular)
 
 # editor
 app.add_url_rule('/edit/', 'edit', view_func=views.edit, methods=['GET', 'POST'])
